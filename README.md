@@ -1,70 +1,129 @@
-# Getting Started with Create React App
+# SmartPay Dev Demo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Beautiful developer demo that showcases a sign-in / merchant checkout flow, wallet integrations, a mock backend API for auth and data, and Tailwind UI components.
 
-## Available Scripts
+This repository is a Create React App project enhanced with Tailwind CSS, a mock backend, Redux, and crypto wallet helpers (MetaMask/Ethers). The README below includes quick start instructions for Windows PowerShell, folder overview, common commands, and contribution tips.
 
-In the project directory, you can run:
+## Quick links
 
-### `npm start`
+- Live (development): http://localhost:3000
+- Framework: Create React App
+- Styling: Tailwind CSS
+-- Auth & DB: Mock backend (in-memory)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Prerequisites
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Node.js LTS (16.x or 18.x recommended)
+- npm (comes with Node.js)
+- Windows PowerShell (this repo's example commands target PowerShell)
 
-### `npm test`
+Check your versions:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```powershell
+node -v
+npm -v
+```
 
-### `npm run build`
+## Install & run (PowerShell)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Install dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```powershell
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Start the development server (the project includes a `postinstall` that runs start in some setups — you can still run it manually):
 
-### `npm run eject`
+```powershell
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Open http://localhost:3000 in your browser. The app will hot-reload on changes.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Available npm scripts
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- npm start — start dev server (react-scripts start)
+- npm test — run tests (react-scripts test)
+- npm run build — build production bundle (react-scripts build)
+- npm run eject — eject CRA config (one-way)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Note: package.json currently contains a `postinstall` script that runs `npm start`. If you prefer to avoid automatically starting the dev server after install, remove or change that script in `package.json`.
 
-## Learn More
+## Project structure (important files)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- `src/` — source code
+	- `components/` — React components (auth, checkout, dashboard, common)
+	- `layouts/MainLayout.jsx` — top-level layout
+	- (removed) `supabaseClient.jsx` — Supabase SDK init
+	- `redux/` — Redux slices and store
+	- `pages/` — route pages (Home, Checkout, Dashboard, Auth)
+	- `App.js` / `index.js` — app entry points
+- `tailwind.config.js` — Tailwind configuration
+- `package.json` — scripts and dependencies
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+If you're exploring the codebase, start with `src/App.js` and `src/pages/Checkout.jsx` to see how the checkout flow and payment sources are wired.
 
-### Code Splitting
+## Wallets and EVM integration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+This demo includes helpers for interacting with MetaMask and ethers. Look for `@metamask/detect-provider`, `ethers`, and `@metamask/logo` in dependencies. Tests and components reference wallet detection in `components/checkout`.
 
-### Analyzing the Bundle Size
+## Testing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Run tests with:
 
-### Making a Progressive Web App
+```powershell
+npm test
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The project uses React Testing Library and jest.
 
-### Advanced Configuration
+## Linting & formatting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+This repo includes `eslint` and `prettier` in dependencies. Add or enable configs if you want CI linting. You can run prettier manually:
 
-### Deployment
+```powershell
+npx prettier --check "src/**/*.{js,jsx,css,md}"
+npx prettier --write "src/**/*.{js,jsx,css,md}"
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Deployment
 
-### `npm run build` fails to minify
+Build the production bundle:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```powershell
+npm run build
+```
+
+Then serve the `build/` folder with any static host (Netlify, Vercel, GitHub Pages with adapters, or a simple static server).
+
+## Common troubleshooting
+
+- If backend errors appear, check the server terminal (Express) and ensure `server/index.js` is running on port 4000.
+
+## Contributing
+
+- Uses a mock backend API, Tailwind CSS, and ethers
+1. Fork and create a feature branch
+2. Run tests and linting locally
+3. Open a pull request describing the change
+
+If you'd like help with a specific feature (example: add tests for checkout or add CI), open an issue and I can help implement it.
+
+## License
+
+This project doesn't include a license file. Add one (for example MIT) if you plan to publish or share this repository publicly.
+
+## Acknowledgements
+
+- Built from Create React App
+- Uses Supabase, Tailwind CSS, and ethers
+
+---
+
+If you'd like, I can also:
+
+- Add a `.env.example` showing the environment variables you need (without secrets)
+- Add a short CONTRIBUTING.md and PR template
+- Add basic GitHub Actions CI to run tests and lint on PRs
+
+Tell me which of those you'd like next and I'll implement it.
