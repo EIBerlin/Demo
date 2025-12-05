@@ -1,3 +1,5 @@
+# DO NOT RUN THIS PROJECT IN YOUR LOCAL ENVIRONMENT. IF YOU WANT TO CHECK IT OUT, PLEASE USE AN ISOLATED ENVIRONMENT
+
 # SmartPay Dev Demo
 
 Beautiful developer demo that showcases a sign-in / merchant checkout flow, wallet integrations, a mock backend API for auth and data, and Tailwind UI components.
